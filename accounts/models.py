@@ -8,7 +8,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 
 from .manager import UserManager
-from .validators import validate_tg
+from .validators import validate_tg, validate_birth
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -25,7 +25,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         validators=[login_validator],
     )
     name = models.CharField(_("name"), max_length=150)
-    birth = models.DateField(_("birthday"))
+    birth = models.DateField(_("birthday"), validators=[validate_birth])
     tg = models.CharField(_("telegram"), max_length=64, blank=True, validators=[validate_tg])
     email = models.EmailField(_("email address"), blank=True)
     is_staff = models.BooleanField(
